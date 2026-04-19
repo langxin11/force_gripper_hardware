@@ -6,7 +6,7 @@ Standalone gripper control module without ROS dependency.
 
 This module provides interactive command-line control for the force-controlled gripper:
 - Uses force_gripper.utils to find serial ports
-- Reads gripper state from CH340 serial port (if available)
+- Reads gripper state from a USB2TTL serial port (if available)
 - Sends commands via main gripper serial port
 - Interactive command-line interface for PWM, position, and initialization commands
 
@@ -59,7 +59,7 @@ lock = threading.Lock()  # Protect cmd_ser.write access
 
 def status_reader_thread():
     """
-    Background thread to read gripper status from CH340 port.
+    Background thread to read gripper status from a USB2TTL port.
     """
     global stat_ser, running
 
@@ -223,7 +223,7 @@ def main():
     try:
         cmd_port_name = force_gripper.utils.find_port_by_name("gripper")
         try:
-            stat_port_name = force_gripper.utils.find_port_by_name("gripper_ch340")
+            stat_port_name = force_gripper.utils.find_port_by_name("gripper_usb2ttl")
             print(f"Found status port: {stat_port_name}")
         except Exception as e:
             stat_port_name = None

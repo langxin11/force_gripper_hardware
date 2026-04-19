@@ -7,7 +7,7 @@ def find_port_by_name(name: str) -> str:
     """
     Automatically locate force_gripper/config/devices.yaml,
     read device info, and return the system serial port (e.g., 'COM3' or '/dev/ttyUSB0')
-    for the given device name ('right', 'left', 'gripper', 'teleoperator').
+    for the given device name ('right', 'left', 'gripper', 'gripper_usb2ttl', 'teleoperator').
     """
     # Locate config/devices.yaml relative to this file
     current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -41,7 +41,7 @@ def find_port_by_name(name: str) -> str:
 
 if __name__ == "__main__":
     try:
-        for dev in ["right", "left", "gripper", "teleoperator"]:
+        for dev in ["right", "left", "gripper", "gripper_usb2ttl", "teleoperator"]:
             port = find_port_by_name(dev)
             print(f"{dev}: {port}")
     except Exception as e:

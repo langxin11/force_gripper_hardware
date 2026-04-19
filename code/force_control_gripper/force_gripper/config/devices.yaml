@@ -1,11 +1,11 @@
 devices:
-  right:
+  right:               # Right tactile sensor serial device
     vid: 1027          # 0x0403 (FTDI)
     pid: 24577         # 0x6001
     serial: "B0012Y6T"
     manufacturer: "FTDI"
 
-  left:
+  left:                # Left tactile sensor serial device
     vid: 1027
     pid: 24577
     serial: "B0012Q7H"
@@ -17,7 +17,7 @@ devices:
     serial: "9520190A50304A46462E3120FF0A1215"
     manufacturer: "Microsoft"
 
-  gripper_ch340:
+  gripper_usb2ttl:       # USB2TTL status adapter, e.g. CH340 or CP2102
     vid: 6790
     pid: 29987
     serial: null

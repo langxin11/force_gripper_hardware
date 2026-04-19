@@ -70,6 +70,8 @@ After uploading, you'll need a Python script for control and feedback. This guid
 
 Serial ports vary by operating system, so we identify them by serial number.
 
+If you purchased a USB2TTL adapter for real-time gripper state feedback, see [Section 6: Real-Time Gripper State via USB2TTL](#6-real-time-gripper-state-via-usb2ttl).
+
 1. Run `code/force_control_gripper/scripts/check_serial_number.py` to identify device information
 2. Update `code/force_control_gripper/force_gripper/config/devices.yaml` with gripper device info for automatic detection
 
@@ -113,7 +115,7 @@ gripper> help          # Show help
 gripper> quit          # Exit
 ```
 
-If a status serial port (CH340) is available, real-time status will be displayed. Otherwise, status shows as null.
+If a status serial port (USB2TTL, such as CH340 or CP2102) is available, real-time status will be displayed. Otherwise, status shows as null. If you purchased a USB2TTL adapter, see [Section 6: Real-Time Gripper State via USB2TTL](#6-real-time-gripper-state-via-usb2ttl).
 
 ## 5. Optional: Motor Baud Rate Optimization
 
@@ -122,3 +124,26 @@ Improve communication speed by modifying motor baud rates.
 Use: `code/openrb150/modify_motor_bitrate/modify_motor_bitrate.ino`
 
 Configure motor ID and target baud rate at the top of the file. Default is 57600. Testing shows 1000000 provides significant speed improvements.
+
+
+## 6. Real-Time Gripper State via USB2TTL
+
+To read the gripper state in real time, we separate the command serial port from the status serial port.
+
+If you use a USB2TTL adapter such as a CH340 or CP2102, connect it as shown below:
+
+![USB2TTL wiring for real-time gripper state](./imgs/doc/connect_to_cp2102.png)
+
+Once connected, this serial port will continuously return the gripper state.
+
+## 7. Optional: Tactile ROS Publishing
+
+The tactile sensors and the gripper are controlled separately.
+
+If you have built the tactile sensors, you can run `code/force_control_gripper/force_gripper/tactile/tactile_ros.py` to continuously publish tactile information.
+
+```bash
+python code/force_control_gripper/force_gripper/tactile/tactile_ros.py
+```
+
+This node reads the left and right tactile serial ports independently and continuously publishes tactile data to ROS topics.

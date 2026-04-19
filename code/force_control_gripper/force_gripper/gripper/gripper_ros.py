@@ -7,7 +7,7 @@ ROS 1 node for controlling Dynamixel gripper via dual serial ports.
 This node:
 1. Subscribes to /gripper/command (std_msgs/String) to receive JSON commands.
 2. Converts JSON commands to Arduino format and sends via 'gripper' serial port.
-3. Reads status from 'gripper_ch340' serial port in a separate thread.
+3. Reads status from 'gripper_usb2ttl' serial port in a separate thread.
 4. Parses status and publishes to /gripper/state (sensor_msgs/Joy).
    - msg.buttons = [ID1, ID2]
    - msg.axes = [pos_norm_1, tgt_norm_1, pwm_norm_1, pos_norm_2, tgt_norm_2, pwm_norm_2]
@@ -43,7 +43,7 @@ lock = threading.Lock() # Protect access to cmd_ser.write
 
 def status_reader_thread():
     """
-    Run in separate thread, read status from CH340 port and publish.
+    Run in separate thread, read status from a USB2TTL port and publish.
     """
     global stat_ser, state_publisher, running
     rospy.loginfo("Status reader thread started.")
@@ -229,12 +229,12 @@ def gripper_node():
     # --- 1. Find ports ---
     try:
         cmd_port_name = force_gripper.utils.find_port_by_name("gripper")
-        stat_port_name = force_gripper.utils.find_port_by_name("gripper_ch340")
+        stat_port_name = force_gripper.utils.find_port_by_name("gripper_usb2ttl")
 
         if not cmd_port_name or not stat_port_name:
             rospy.logfatal("Could not find required serial ports. Exiting.")
             rospy.logfatal("Gripper (command) port: %s", cmd_port_name)
-            rospy.logfatal("CH340 (status) port: %s", stat_port_name)
+            rospy.logfatal("USB2TTL (status) port: %s", stat_port_name)
             return
 
         rospy.loginfo("Found command port: %s", cmd_port_name)

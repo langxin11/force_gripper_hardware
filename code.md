@@ -129,7 +129,7 @@ Use: `code/openrb150/modify_motor_bitrate/modify_motor_bitrate.ino`
 Configure motor ID and target baud rate at the top of the file. Default is 57600. Testing shows 1000000 provides significant speed improvements.
 
 
-## 6. Real-Time Gripper State via USB2TTL
+## 1.6 Real-Time Gripper State via USB2TTL
 
 To read the gripper state in real time, we separate the command serial port from the status serial port.
 
@@ -139,7 +139,7 @@ If you use a USB2TTL adapter such as a CH340 or CP2102, connect it as shown belo
 
 Once connected, this serial port will continuously return the gripper state.
 
-## 7. Optional: Tactile ROS Publishing
+## 1.7 Optional: Tactile ROS Publishing
 
 The tactile sensors and the gripper are controlled separately.
 
@@ -152,7 +152,7 @@ python code/force_control_gripper/force_gripper/tactile/tactile_ros.py
 This node reads the left and right tactile serial ports independently and continuously publishes tactile data to ROS topics.
 # 2. Teleoperator Setup
 
-The teleoperator system uses a separate OpenRB-150 board to read load (force) feedback from two Dynamixel motors (typically IDs 3 and 4). This can be used for haptic feedback or remote control.
+The teleoperator system uses a separate OpenRB-150 board to read load (force) feedback from two Dynamixel motors (we use IDs 3 and 4). 
 
 ## 2.1 Hardware Preparation
 1. Connect two Dynamixel motors to the OpenRB-150.

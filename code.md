@@ -73,7 +73,7 @@ After uploading, you'll need a Python script for control and feedback. This guid
 
 Serial ports vary by operating system, so we identify them by serial number.
 
-If you purchased a USB2TTL adapter for real-time gripper state feedback, see [Section 6: Real-Time Gripper State via USB2TTL](#6-real-time-gripper-state-via-usb2ttl).
+If you purchased a USB2TTL adapter for real-time gripper state feedback, see [Section 1.6: Real-Time Gripper State via USB2TTL](#16-real-time-gripper-state-via-usb2ttl).
 
 1. Run `code/force_control_gripper/scripts/check_serial_number.py` to identify device information
 2. Update `code/force_control_gripper/force_gripper/config/devices.yaml` with gripper device info for automatic detection
@@ -85,7 +85,7 @@ If you purchased a USB2TTL adapter for real-time gripper state feedback, see [Se
 Navigate to the package directory and install in development mode:
 
 ```bash
-cd /Users/hui/workspace/force_gripper_hardware/code/force_control_gripper
+cd code/force_control_gripper
 pip install -e .
 ```
 
@@ -118,7 +118,7 @@ gripper> help          # Show help
 gripper> quit          # Exit
 ```
 
-If a status serial port (USB2TTL, such as CH340 or CP2102) is available, real-time status will be displayed. Otherwise, status shows as null. If you purchased a USB2TTL adapter, see [Section 6: Real-Time Gripper State via USB2TTL](#6-real-time-gripper-state-via-usb2ttl).
+If a status serial port (USB2TTL, such as CH340 or CP2102) is available, real-time status will be displayed. Otherwise, status shows as null. If you purchased a USB2TTL adapter, see [Section 1.6: Real-Time Gripper State via USB2TTL](#16-real-time-gripper-state-via-usb2ttl).
 
 ## 1.5 Optional: Motor Baud Rate Optimization
 

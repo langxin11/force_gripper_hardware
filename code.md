@@ -1,10 +1,13 @@
-# Code Setup and Usage Guide
+- [1. Gripper Setup](#1-gripper-setup)
+- [2. Teleoperator Setup](#2-teleoperator-setup)
 
 ## Prerequisites
 
 This guide assumes you're using the OpenRB-150 board with Arduino. If you're new to Arduino, we recommend learning the basics first. Configure your Arduino IDE according to the official documentation: [OpenRB-150 Arduino IDE Setup](https://emanual.robotis.com/docs/en/parts/controller/openrb-150/#install-the-arduino-ide).
 
-## 1. Motor Detection and Setup
+# 1. Gripper Setup
+
+## 1.1 Motor Detection and Setup
 
 Use `code/openrb150/scan_ids` to verify successful connection and detect motors. Motors ship with ID 1 by default. In this example, one motor has been set to ID 2.
 
@@ -23,7 +26,7 @@ SCAN BAUDRATE 3000000
 Total 2 DYNAMIXEL(s) found!
 ```
 
-## 2. Motor ID Configuration
+## 1.2 Motor ID Configuration
 
 Motors ship with ID 1 by default. We'll change one to ID 2. Connect only one motor at a time, as the code detects ID 1 and changes it to 2.
 
@@ -41,7 +44,7 @@ PROTOCOL 2.0, ID 1: ping succeeded!, Model Number: 1060
 ID has been successfully changed to 2
 ```
 
-## 3. Single Motor PWM Test
+## 1.3 Single Motor PWM Test
 
 Load test code to verify PWM control of individual motors.
 
@@ -56,7 +59,7 @@ After uploading, use Arduino IDE Serial Monitor to test PWM values. Enter values
 
 ![Serial Test](./imgs/doc/serial_test_single_motor.png)
 
-## 4. Main Gripper Control Code
+## 1.4 Main Gripper Control Code
 
 Once testing is successful, upload the main gripper control code.
 
@@ -117,7 +120,7 @@ gripper> quit          # Exit
 
 If a status serial port (USB2TTL, such as CH340 or CP2102) is available, real-time status will be displayed. Otherwise, status shows as null. If you purchased a USB2TTL adapter, see [Section 6: Real-Time Gripper State via USB2TTL](#6-real-time-gripper-state-via-usb2ttl).
 
-## 5. Optional: Motor Baud Rate Optimization
+## 1.5 Optional: Motor Baud Rate Optimization
 
 Improve communication speed by modifying motor baud rates.
 
@@ -147,3 +150,36 @@ python code/force_control_gripper/force_gripper/tactile/tactile_ros.py
 ```
 
 This node reads the left and right tactile serial ports independently and continuously publishes tactile data to ROS topics.
+# 2. Teleoperator Setup
+
+The teleoperator system uses a separate OpenRB-150 board to read load (force) feedback from two Dynamixel motors (typically IDs 3 and 4). This can be used for haptic feedback or remote control.
+
+## 2.1 Hardware Preparation
+1. Connect two Dynamixel motors to the OpenRB-150.
+2. Ensure the motors have IDs 3 and 4 (use the `scan_ids` and `update_motor_id` tools if necessary).
+
+## 2.2 Arduino Code Deployment
+Use: `code/openrb150/teleoperator/teleoperator.ino`
+
+- **Baud Rate**: The motor communication is set to 57600. The PC serial communication is set to 115200.
+- **Output Format**: The board sends data in the format `L3:value,L4:value\n` at approximately 100Hz.
+
+## 2.3 Configuration
+Identify the teleoperator's serial number and add it to `code/force_control_gripper/force_gripper/config/devices.yaml`:
+
+```yaml
+devices:
+  teleoperator:
+    serial: "YOUR_SERIAL_NUMBER"
+    vid: 33261
+    pid: 144
+```
+
+## 2.4 Testing the Connection
+You can use the dedicated test script to verify that the PC is receiving data correctly:
+
+```bash
+python code/force_control_gripper/scripts/test_teleoperator_serial.py
+```
+
+The script will automatically find the port, send a wake-up character, and start printing the force/load data from IDs 3 and 4.

@@ -7,7 +7,7 @@ const int      DXL_DIR_PIN   = -1;
 const uint32_t DXL_BAUD      = 1000000;   // If you changed to 1Mbps, set to 1000000
 
 #define CMD_PORT     Serial               // Command input port: default USB.
-#define STAT_PORT    Serial1              // Status output port: default USB2TTL adapter (e.g. CH340 or CP2102).
+#define STAT_PORT    Serial3              // Status output port: default USB2TTL adapter (e.g. CH340 or CP2102).
 const uint32_t CMD_BAUD   = 1000000;
 const uint32_t STAT_BAUD  = 1000000;
 

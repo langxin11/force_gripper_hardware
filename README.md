@@ -17,6 +17,7 @@ This repository provides complete hardware implementation guides:
 - **[Assembly Guide](Assembly_guide.md)** - Step-by-step assembly instructions
 - **Tactile sensor** - See [FlexiTac](https://flexitac.github.io)
 - **[Code Setup and Usage Guide](code.md)** - Arduino IDE configuration, motor setup, and firmware uploading
+- **[Code Architecture Reference](code/README.md)** - Code directory structure, data flow, and parameter quick reference
 
 ## Support
 

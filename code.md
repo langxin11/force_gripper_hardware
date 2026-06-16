@@ -5,6 +5,8 @@
 
 This guide assumes you're using the OpenRB-150 board with Arduino. If you're new to Arduino, we recommend learning the basics first. Configure your Arduino IDE according to the official documentation: [OpenRB-150 Arduino IDE Setup](https://emanual.robotis.com/docs/en/parts/controller/openrb-150/#install-the-arduino-ide).
 
+> 📖 For a technical overview of the code architecture, data flow, and parameter reference, see **[code/README.md](code/README.md)**.
+
 # 1. Gripper Setup
 
 ## 1.1 Motor Detection and Setup
